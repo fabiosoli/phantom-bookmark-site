@@ -1,0 +1,61 @@
+<div class="container">
+  <h4>Bookmark entry</h4>
+  <div class="text-right">
+    <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+  </div>
+  <!-- form -->
+  <div class="regentry" *ngIf="showNew">
+    <form #form="ngForm" novalidate (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="bookmarkName-input" class="col-2 col-form-label">Bookmark title</label>
+        <div class="col-10">
+          <input #bookmarkName="ngModel" required class="form-control" type="text" [(ngModel)]="regModel.bookmarkName" name="bookmarkName">
+          <div *ngIf="bookmarkName.invalid && bookmarkName.touched" class="alert alert-danger">
+            Bookmark is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="bookmarkURL-input" class="col-2 col-form-label">Bookmark url</label>
+        <div class="col-10">
+          <input #bookmarkURL="ngModel" required pattern="https://.*" class="form-control" type="url" [(ngModel)]="regModel.bookmarkURL" name="bookmarkURL">
+          <div *ngIf="bookmarkURL.invalid && bookmarkURL.touched" class="alert alert-danger">
+            URL is required or invalid.
+          </div>
+        </div>
+      </div>
+    <button type="submit" class="btn bt-primary" [disabled]="form.invalid">{{submitType}}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+  <!-- form -->
+  <div class="reglist">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>URL</th>          
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let registration of registrations; let i = index"> -->
+        <tr *ngFor="let registration of registrations | paginate: { itemsPerPage:20, currentPage: p }; let i = index">
+          <td>{{ registration.bookmarkName }}</td>
+          <td><a href="{{ registration.bookmarkURL }}" target="_blank">{{ registration.bookmarkURL }}</a></td>          
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(i)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>   
+  </div>
+  <br>
+  
+</div>

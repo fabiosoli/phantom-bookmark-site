@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+  	<div class="col-md-12">
+  		<h1>TDD (Technical Design Document)</h1>
+    </div>
+  	<div class="col-md-12">
+  		<h4>Bookmark using Angular JS</h4>
+    	<p>The application itself is a single page and it's main components is named <b>registration</b> (for entering and displaying a bookmark list).</p>
+    </div>
+    <div class="col-md-12">
+    	<h4>Constraints</h4>
+    	<p>The form makes use of Template-Driven validation in opposite to Reactive forms. I believe reactive form validation would be more efficient with URL but I used a <code>let checkFlag: boolean = false;</code> for checking bookmarks bookmarkName (see registration component.ts) however the validation is not fullfilling http as I used <code>pattern="https://.*"</code></p>
+    </div>
+  </div>
+</div>
